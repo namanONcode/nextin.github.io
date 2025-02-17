@@ -335,10 +335,10 @@ try {
         // Handle success
         const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
         const newPageContent = `
-        <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:white;">
-            <h1>Appointment Confirmation</h1>
+        <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
+          <b>  <h1>Appointment Confirmation</h1>
             <p>Appointment booked successfully.</p>
-            <p><strong>Token Number:</strong> ${tokenNumber}</p>
+            <p><strong>Token Number:</strong> ${tokenNumber}</p></b>
         </div>
         `;
         document.body.innerHTML = newPageContent;
@@ -404,10 +404,10 @@ async function bookAppointment() {
         if (response.ok) {
             const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
             const newPageContent = `
-            <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:white;">
-                <h1>Appointment Confirmation</h1>
+            <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
+               <b> <h1>Appointment Confirmation</h1>
                 <p>Appointment booked successfully.</p>
-                <p><strong>Token Number:</strong> ${tokenNumber}</p>
+                <p><strong>Token Number:</strong> ${tokenNumber}</p></b>
             </div>
                 `;
             document.body.innerHTML = newPageContent;
@@ -498,10 +498,10 @@ async function bookAppointment() {
 
                 // Show confirmation page
                 const newPageContent = `
-                <div  style="text-align: center; desplay: flex; justify-content: center; align-items: center;  color:white;">
-                    <h1>Appointment Confirmation</h1>
+                <div  style="text-align: center; desplay: flex; justify-content: center; align-items: center;  color:black;font-size: 1.5rem; margin-top: 10rem;">
+                   <b> <h1>Appointment Confirmation</h1>
                     <p>Appointment booked successfully.</p>
-                    <p><strong>Token Number:</strong> ${tokenNumber}</p>
+                    <p><strong>Token Number:</strong> ${tokenNumber}</p></b>
                   </div>
                 `;
                 document.body.innerHTML = newPageContent;
