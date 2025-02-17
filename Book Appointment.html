@@ -335,7 +335,7 @@ try {
         // Handle success
         const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
         const newPageContent = `
-        <div class="form-container" style="text-align: center; desplay: flex; justify-content: center; align-items: center;">
+        <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:white;">
             <h1>Appointment Confirmation</h1>
             <p>Appointment booked successfully.</p>
             <p><strong>Token Number:</strong> ${tokenNumber}</p>
@@ -404,7 +404,7 @@ async function bookAppointment() {
         if (response.ok) {
             const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
             const newPageContent = `
-            <div class="form-container" style="text-align: center; desplay: flex; justify-content: center; align-items: center;">
+            <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:white;">
                 <h1>Appointment Confirmation</h1>
                 <p>Appointment booked successfully.</p>
                 <p><strong>Token Number:</strong> ${tokenNumber}</p>
@@ -498,7 +498,7 @@ async function bookAppointment() {
 
                 // Show confirmation page
                 const newPageContent = `
-                <div class="form-container" style="text-align: center; desplay: flex; justify-content: center; align-items: center;">
+                <div  style="text-align: center; desplay: flex; justify-content: center; align-items: center;  color:white;">
                     <h1>Appointment Confirmation</h1>
                     <p>Appointment booked successfully.</p>
                     <p><strong>Token Number:</strong> ${tokenNumber}</p>
