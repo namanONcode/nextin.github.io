@@ -124,35 +124,25 @@
         <button id="create-slot" type="button">Create Slot</button>
     </div>
     <script>
-        async function createSlot() {
-            const userId = "3452314"; // Example User ID
-            const organizationName = document.getElementById('hospital-name').value;
-            const address = document.getElementById('address').value;
-            const doctorName = document.getElementById('doctor-name').value;
-            const specialization = document.getElementById('specialization').value;
-            const appointmentDate = document.getElementById('appointment-date').value;
-            const timeFrom = document.getElementById('start-time').value;
-            const timeTo = document.getElementById('end-time').value;
-            const noOfTokens = parseInt(document.getElementById('tokens').value, 10);
-
-            // Construct the data object
+     async function createSlot() {
             const data = {
-                userId: userId,
-                organizationName: organizationName,
-                address: address,
+                userId: "3452314",
+                organizationName: document.getElementById('hospital-name').value,
+                address: document.getElementById('address').value,
                 doctors: [
                     {
-                        name: doctorName,
-                        specialization: specialization,
-                        organizationName: organizationName,
-                        availableDate: appointmentDate,
-                        timeFrom: timeFrom,
-                        timeTo: timeTo
+                        name: document.getElementById('doctor-name').value,
+                        specialization: document.getElementById('specialization').value,
+                        organizationName: document.getElementById('hospital-name').value,
+                        availableDate: document.getElementById('appointment-date').value,
+                        timeFrom: document.getElementById('start-time').value,
+                        timeTo: document.getElementById('end-time').value,
+                        noOfTokens: parseInt(document.getElementById('tokens').value, 10)
                     }
                 ],
-                appointmentDate: appointmentDate,
-                noOfTokens: noOfTokens
+                appointmentDate: document.getElementById('appointment-date').value
             };
+
 
             try {
                 const response = await fetch("https://ezappoint.azurewebsites.net/queue/organization/save-details", {
