@@ -69,7 +69,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             animation: fadeInUp 1s ease;
         }
-        .from-container {
+        .form-container {
             background: rgba(255, 255, 255, 0.1);
             padding: 2rem;
             border-radius: 15px;
@@ -111,6 +111,8 @@
             margin-top: 10px;
             font-weight: bold;
             color: red;
+        
+        
         }
         @keyframes fadeInDown {
             from {
@@ -333,7 +335,7 @@ try {
         // Handle success
         const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
         const newPageContent = `
-        <div class="form-container">
+        <div class="form-container" style="text-align: center; desplay: flex; justify-content: center; align-items: center;">
             <h1>Appointment Confirmation</h1>
             <p>Appointment booked successfully.</p>
             <p><strong>Token Number:</strong> ${tokenNumber}</p>
@@ -402,7 +404,7 @@ async function bookAppointment() {
         if (response.ok) {
             const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
             const newPageContent = `
-            <div class="form-container">
+            <div class="form-container" style="text-align: center; desplay: flex; justify-content: center; align-items: center;">
                 <h1>Appointment Confirmation</h1>
                 <p>Appointment booked successfully.</p>
                 <p><strong>Token Number:</strong> ${tokenNumber}</p>
@@ -496,7 +498,7 @@ async function bookAppointment() {
 
                 // Show confirmation page
                 const newPageContent = `
-                <div class="form-container">
+                <div class="form-container" style="text-align: center; desplay: flex; justify-content: center; align-items: center;">
                     <h1>Appointment Confirmation</h1>
                     <p>Appointment booked successfully.</p>
                     <p><strong>Token Number:</strong> ${tokenNumber}</p>
