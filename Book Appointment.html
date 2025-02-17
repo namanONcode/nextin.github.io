@@ -147,13 +147,13 @@
     
         <h2>Book your appointment</h2>
         <label for="name">Name:</label>
-        <input type="name" id="name" placeholder="Enter patient name">
+        <input type="text" id="name" pattern="[A-Za-z]+" placeholder="Enter patient name">
         
         <label for="contact">Contact:</label>
         <input type="text" id="contact" placeholder="Enter your contact number">
         
         <label for="date">Select Date:</label>
-        <input type="date" id="date" required>
+        <input type="date" id="futureDate" name="futureDate" min="" required>
 
         <label for="location">Location:</label>
         <select id="location">
@@ -187,6 +187,7 @@
     </div>
 
     <script>
+        document.getElementById("futureDate").min = new Date().toISOString().split("T")[0];
 
 // Function to fetch locations and populate the dropdown
 async function fetchLocations() {
