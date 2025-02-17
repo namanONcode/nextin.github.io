@@ -147,7 +147,10 @@
     
         <h2>Book your appointment</h2>
         <label for="name">Name:</label>
-        <input type="text" id="name" pattern="[A-Za-z]+" placeholder="Enter patient name">
+       <label for="hospital-name">Hospital Name:</label>
+<input type="text" id="hospital-name" pattern="[A-Za-z]+" placeholder="Enter hospital" required
+    oninput="this.value = this.value.replace(/[^A-Za-z]/g, '')">
+
         
         <label for="contact">Contact:</label>
         <input type="text" id="contact" placeholder="Enter your contact number">
