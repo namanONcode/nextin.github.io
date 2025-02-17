@@ -148,7 +148,7 @@
         <h2>Book your appointment</h2>
       
        <label for="Patient name">Patient Name:</label>
-<input type="text" id="patient name" pattern="[A-Za-z]+" placeholder="Enter name" required
+<input type="text" id="patient-name" pattern="[A-Za-z]+" placeholder="Enter name" required
     oninput="this.value = this.value.replace(/[^A-Za-z]/g, '')">
 
         
@@ -288,7 +288,11 @@ async function fetchTimeslots(doctorName, date) {
 
 // Function to submit the booking request
 async function bookAppointment() {
-    const patientName = document.getElementById('name').value.trim();
+   function getValue(id) {
+    return document.getElementById(id)?.value?.trim() || ""; 
+}
+const patientName = getValue("patient-name");  // Fixed ID
+
     const contactNumber = document.getElementById('contact').value.trim();
     const date = document.getElementById('date').value;
     const location = document.getElementById('location').value;
@@ -529,7 +533,10 @@ async function bookAppointment() {
 }
 
 // Attach event listener to the button
-document.getElementById("submitBtn").addEventListener("click", bookAppointment);
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("submitBtn").addEventListener("click", bookAppointment);
+});
+
 
 
 
