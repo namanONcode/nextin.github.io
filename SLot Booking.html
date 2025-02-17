@@ -98,7 +98,7 @@
     </div>
     <div class="container">
         <label for="hospital-name">Hospital Name:</label>
-    <input type="text" id="hospital-name" pattern="[A-Za-z]+" placeholder="Enter hospital">
+    <input type="text" id="hospital-name"  placeholder="Enter hospital">
         
 
         <label for="address">Address:</label>
@@ -125,7 +125,7 @@
         <button id="create-slot" type="button">Create Slot</button>
     </div>
     <script>
-        // document.getElementById("futureDate").min = new Date().toISOString().split("T")[0];
+        document.getElementById("futureDate").min = new Date().toISOString().split("T")[0];
      async function createSlot() {
             const data = {
                 userId: "3452314",
