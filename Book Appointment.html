@@ -187,6 +187,11 @@
     </div>
 
     <script>
+        // Get today's date in YYYY-MM-DD format
+  let today = new Date().toISOString().split('T')[0];
+
+  // Set the min attribute to today's date
+  document.getElementById("date").setAttribute("min", today);
 
 // Function to fetch locations and populate the dropdown
 async function fetchLocations() {
@@ -335,11 +340,12 @@ try {
         // Handle success
         const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
         const newPageContent = `
-        <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
+       <body> <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
           <b>  <h1>Appointment Confirmation</h1>
             <p>Appointment booked successfully.</p>
             <p><strong>Token Number:</strong> ${tokenNumber}</p></b>
-        </div>
+              <a href="index.html"><button id="submit" type="button">DONE</button></a>
+        </div></body>
         `;
         document.body.innerHTML = newPageContent;
     } else {
@@ -404,11 +410,12 @@ async function bookAppointment() {
         if (response.ok) {
             const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
             const newPageContent = `
-            <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
+          <body>  <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
                <b> <h1>Appointment Confirmation</h1>
                 <p>Appointment booked successfully.</p>
                 <p><strong>Token Number:</strong> ${tokenNumber}</p></b>
-            </div>
+                  <a href="index.html"><button id="submit" type="button">DONE</button></a>
+            </div></body>
                 `;
             document.body.innerHTML = newPageContent;
         } else {
@@ -498,11 +505,12 @@ async function bookAppointment() {
 
                 // Show confirmation page
                 const newPageContent = `
-                <div  style="text-align: center; desplay: flex; justify-content: center; align-items: center;  color:black;font-size: 1.5rem; margin-top: 10rem;">
+               <body> <div  style="text-align: center; desplay: flex; justify-content: center; align-items: center;  color:black;font-size: 1.5rem; margin-top: 10rem;">
                    <b> <h1>Appointment Confirmation</h1>
                     <p>Appointment booked successfully.</p>
                     <p><strong>Token Number:</strong> ${tokenNumber}</p></b>
-                  </div>
+                     <a href="index.html"><button id="submit" type="button">DONE</button></a>
+                  </div></body>
                 `;
                 document.body.innerHTML = newPageContent;
             } else {
