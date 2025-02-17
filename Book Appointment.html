@@ -293,7 +293,37 @@ function populateDoctors(doctors) {
             alert("Error fetching available timeslots.");
         }
     }
+ document.addEventListener('DOMContentLoaded', () => {
+        fetchLocations();
 
+        const locationDropdown = document.getElementById('location');
+        locationDropdown.addEventListener('change', () => {
+            const selectedLocation = locationDropdown.value;
+            if (selectedLocation) {
+                fetchHospitals(selectedLocation);
+            }
+        });
+
+        const doctorDropdown = document.getElementById('doctor');
+        const dateInput = document.getElementById('futureDate');  // Correct ID for date input
+        doctorDropdown.addEventListener('change', () => {
+            const selectedDoctor = doctorDropdown.value;
+            const selectedDate = dateInput.value;
+            if (selectedDoctor && selectedDate) {
+                fetchTimeslots(selectedDoctor, selectedDate);
+            }
+        });
+
+        dateInput.addEventListener('change', () => {
+            const selectedDate = dateInput.value;
+            const selectedDoctor = doctorDropdown.value;
+            if (selectedDate && selectedDoctor) {
+                fetchTimeslots(selectedDoctor, selectedDate);
+            }
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', bookAppointment);
+    });
 // Function to submit the booking request
 async function bookAppointment() {
    function getValue(id) {
