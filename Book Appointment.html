@@ -191,6 +191,7 @@
 
     <script>
         document.getElementById("futureDate").min = new Date().toISOString().split("T")[0];
+        
 
 // Function to fetch locations and populate the dropdown
 async function fetchLocations() {
@@ -266,25 +267,32 @@ function populateDoctors(doctors) {
 }
 
 // Function to fetch available timeslots for a doctor on a given date
-async function fetchTimeslots(doctorName, date) {
-    try {
-        const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/timeslots?doctorName=${doctorName}&date=${date}`);
-        const timeslots = await response.json();
-        const timeslotDropdown = document.getElementById('timeslot');
-        timeslotDropdown.innerHTML = '<option value="">-- Select Time Slot --</option>';
-        for (let i = 0; i < timeslots.length - 1; i++) {
-            const startTime = timeslots[i];
-            const endTime = timeslots[i + 1];
-            const option = document.createElement('option');
-            option.value = `${startTime}-${endTime}`;
-            option.textContent = `${startTime}-${endTime}`;
-            timeslotDropdown.appendChild(option);
+  // Function to fetch available timeslots for a doctor on a given date
+    async function fetchTimeslots(doctorName, date) {
+        try {
+            const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/timeslots?doctorName=${doctorName}&date=${date}`);
+            const timeslots = await response.json();
+            const timeslotDropdown = document.getElementById('timeslot');
+            timeslotDropdown.innerHTML = '<option value="">-- Select Time Slot --</option>';
+            if (timeslots.length > 0) {
+                for (let i = 0; i < timeslots.length - 1; i++) {
+                    const startTime = timeslots[i];
+                    const endTime = timeslots[i + 1];
+                    const option = document.createElement('option');
+                    option.value = `${startTime}-${endTime}`;
+                    option.textContent = `${startTime}-${endTime}`;
+                    timeslotDropdown.appendChild(option);
+                }
+                timeslotDropdown.disabled = false;
+            } else {
+                timeslotDropdown.disabled = true;
+                alert("No available time slots for this doctor on the selected date.");
+            }
+        } catch (error) {
+            console.error('Error fetching timeslots:', error);
+            alert("Error fetching available timeslots.");
         }
-        timeslotDropdown.disabled = false;
-    } catch (error) {
-        console.error('Error fetching timeslots:', error);
     }
-}
 
 // Function to submit the booking request
 async function bookAppointment() {
