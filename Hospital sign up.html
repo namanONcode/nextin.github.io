@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(120deg, #8e44ad, #3498db);
+            animation: gradientBackground 10s ease infinite;
+            color: #fff;
+        }
+
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 1s ease;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 2rem;
+            color: #fff;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="http://localhost:8000/landinpage1.html" class="close-btn">&times;</a>
+    
+    <div class="container">
+        <header>
+            <h1>Welcome</h1>
+            <p>This is a sign-up page. Enter your credentials to create an account.</p>
+        </header>
+        <div class="form-container">
+            <form id="sign-up-form" >
+                <h2 style="color:#fff">Sign Up as Hospital</h2>
+
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
+
+                <!-- <label for="org">org</label>
+                <input type="" name="org" required> -->
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+                
+                 <a href="http://localhost:8000/loginpage1.html">
+                    <button type="submit" >Sign Up</button>
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Attach a submit event listener to the form
+        document.getElementById("sign-up-form").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent form from refreshing the page
+
+            // Collect form data
+            const data = {
+                username: document.getElementById("username").value,
+                phoneNumber: document.getElementById("phoneNumber").value,
+                email: document.getElementById("email").value,
+                location: document.getElementById("location").value,
+                password: document.getElementById("password").value
+            };
+
+            console.log("Payload being sent:", data);
+
+            try {
+                // Send POST request to the API
+                const response = await fetch("https://ezappoint.azurewebsites.net/queue/public/create-org", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // Check if the response is ok
+                if (!response.ok) {
+                    throw new Error(`Failed to create user: ${response.statusText}`);
+                }
+
+                // Determine response type (JSON or plain text)
+                const contentType = response.headers.get("content-type");
+                let result;
+                if (contentType && contentType.includes("application/json")) {
+                    result = await response.json(); // Parse JSON response
+                } else {
+                    result = await response.text(); // Parse plain text response
+                }
+
+                // Handle success response
+                if (typeof result === "string") {
+                    console.log("Success (plain text):", result);
+                    alert(result); // Display plain text success message
+                } else {
+                    console.log("Success (JSON):", result);
+                    alert(result.message || "User created successfully!");
+                }
+            } catch (error) {
+                // Handle errors
+                console.error("Error:", error);
+                alert(`Error: ${error.message}`);
+            }
+            window.location.href = "landinpage1.html";
+        });
+    </script>
+</body>
+</html>

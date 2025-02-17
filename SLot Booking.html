@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Slot </title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(150deg, #8fd3f4, #84fab0);
+            animation: gradientBackground 10s ease infinite;
+            color: #333;
+        }
+
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 50%;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 45px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            box-shadow: 0 0 10px #8fd3f4;
+            outline: none;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Hospital Details</h1>
+    </div>
+    <div class="container">
+        <label for="hospital-name">Hospital Name:</label>
+        <input type="text" id="hospital-name" placeholder="Enter Hospital Name" maxlength="40">
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" placeholder="City/Town/Village" maxlength="40">
+
+        <label for="doctor-name">Doctor's Name:</label>
+        <input type="text" id="doctor-name" placeholder="Enter Doctor's Name">
+
+        <label for="specialization">Specialization:</label>
+        <input type="text" id="specialization" placeholder="Enter Specialization">
+
+        <label for="tokens">No of Tokens:</label>
+        <input type="number" id="tokens" placeholder="Enter No of Tokens">
+
+        <label for="appointment-date">Appointment Date:</label>
+        <input type="date" id="appointment-date">
+
+        <label for="start-time">Start Time:</label>
+        <input type="time" id="start-time">
+
+        <label for="end-time">End Time:</label>
+        <input type="time" id="end-time">
+
+        <button id="create-slot" type="button">Create Slot</button>
+    </div>
+    <script>
+        async function createSlot() {
+            const userId = "3452314"; // Example User ID
+            const organizationName = document.getElementById('hospital-name').value;
+            const address = document.getElementById('address').value;
+            const doctorName = document.getElementById('doctor-name').value;
+            const specialization = document.getElementById('specialization').value;
+            const appointmentDate = document.getElementById('appointment-date').value;
+            const timeFrom = document.getElementById('start-time').value;
+            const timeTo = document.getElementById('end-time').value;
+            const noOfTokens = parseInt(document.getElementById('tokens').value, 10);
+
+            // Construct the data object
+            const data = {
+                userId: userId,
+                organizationName: organizationName,
+                address: address,
+                doctors: [
+                    {
+                        name: doctorName,
+                        specialization: specialization,
+                        organizationName: organizationName,
+                        availableDate: appointmentDate,
+                        timeFrom: timeFrom,
+                        timeTo: timeTo
+                    }
+                ],
+                appointmentDate: appointmentDate,
+                noOfTokens: noOfTokens
+            };
+
+            try {
+                const response = await fetch("https://ezappoint.azurewebsites.net/queue/organization/save-details", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const jsonResponse = await response.json();
+                    alert("Slot created successfully! Response: " + JSON.stringify(jsonResponse));
+                } else {
+                    alert("Failed to create slot. Error: " + response.statusText);
+                }
+            } catch (error) {
+                alert("An error occurred: " + error.message);
+            }
+        }
+
+        document.getElementById("create-slot").addEventListener("click", createSlot);
+    </script>
+</body>
+</html>
