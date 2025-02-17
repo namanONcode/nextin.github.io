@@ -113,7 +113,7 @@
         <input type="number" id="tokens" placeholder="Enter No of Tokens">
 
         <label for="appointment-date">Appointment Date:</label>
-        <input type="date" id="appointment-date">
+       <input type="date" id="futureDate" name="futureDate" min="" required>
 
         <label for="start-time">Start Time:</label>
         <input type="time" id="start-time">
@@ -124,6 +124,7 @@
         <button id="create-slot" type="button">Create Slot</button>
     </div>
     <script>
+        document.getElementById("futureDate").min = new Date().toISOString().split("T")[0];
      async function createSlot() {
             const data = {
                 userId: "3452314",
