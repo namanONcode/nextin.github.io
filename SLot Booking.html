@@ -76,12 +76,30 @@
         }
 
         .close-btn:hover { transform: rotate(90deg); }
+        .top-right-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.top-right-btn:hover {
+    background-color: #0056b3;
+}
     </style>
 </head>
 <body>
     <a href="index.html" class="close-btn">&times;</a>
     <div class="header">
         <h1>Hospital Details</h1>
+        <a href="index.html">
+    <button class="top-right-btn">view appoinments</button></a>
     </div>
     <div class="container">
         <label for="hospital-name">Hospital Name:</label>
