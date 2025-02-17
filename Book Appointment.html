@@ -340,11 +340,13 @@ try {
         // Handle success
         const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
         const newPageContent = `
-       <body> <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
+       <body style="  background: linear-gradient(150deg, #8fd3f4, #84fab0);"> <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
           <b>  <h1>Appointment Confirmation</h1>
             <p>Appointment booked successfully.</p>
             <p><strong>Token Number:</strong> ${tokenNumber}</p></b>
-              <a href="index.html"><button id="submit" type="button">DONE</button></a>
+              <a href="index.html"><button id="submit" type="button" style=" padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;">DONE</button></a>
         </div></body>
         `;
         document.body.innerHTML = newPageContent;
@@ -410,11 +412,13 @@ async function bookAppointment() {
         if (response.ok) {
             const tokenNumber = result["Token Number"] || result.tokenNumber || "Unknown";
             const newPageContent = `
-          <body>  <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
+          <body style="  background: linear-gradient(150deg, #8fd3f4, #84fab0);">  <div style="text-align: center; desplay: flex; justify-content: center; align-items: center; color:black;font-size: 1.5rem; margin-top: 10rem;">
                <b> <h1>Appointment Confirmation</h1>
                 <p>Appointment booked successfully.</p>
                 <p><strong>Token Number:</strong> ${tokenNumber}</p></b>
-                  <a href="index.html"><button id="submit" type="button">DONE</button></a>
+                  <a href="index.html"><button id="submit" type="button"  style=" padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;">DONE</button></a>
             </div></body>
                 `;
             document.body.innerHTML = newPageContent;
@@ -505,11 +509,13 @@ async function bookAppointment() {
 
                 // Show confirmation page
                 const newPageContent = `
-               <body> <div  style="text-align: center; desplay: flex; justify-content: center; align-items: center;  color:black;font-size: 1.5rem; margin-top: 10rem;">
+               <body style="  background: linear-gradient(150deg, #8fd3f4, #84fab0);"> <div  style="text-align: center; desplay: flex; justify-content: center; align-items: center;  color:black;font-size: 1.5rem; margin-top: 10rem;">
                    <b> <h1>Appointment Confirmation</h1>
                     <p>Appointment booked successfully.</p>
                     <p><strong>Token Number:</strong> ${tokenNumber}</p></b>
-                     <a href="index.html"><button id="submit" type="button">DONE</button></a>
+                     <a href="index.html"><button id="submit" type="button"  style=" padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;">DONE</button></a>
                   </div></body>
                 `;
                 document.body.innerHTML = newPageContent;
