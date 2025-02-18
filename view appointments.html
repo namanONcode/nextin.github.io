@@ -350,7 +350,7 @@
 
         async function fetchAppointmentData() {
             try {
-                const response = await fetch("https://ezappoint.azurewebsites.net/queue/appointment/fetch?organizationName=tmu");
+                const response = await fetch("https://ezappoint.azurewebsites.net/queue/appointment/fetch?organizationName=<organizationName>");
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 appointments = await response.json();
                 populateFilters();
@@ -362,7 +362,7 @@
 
         async function fetchFilteredData(date) {
             try {
-                const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/fetch?organizationName=tmu&date=${date}`);
+                const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/fetch?organizationName=<organizationName>&date=${date}`);
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 const filteredAppointments = await response.json();
                 appointments = filteredAppointments;
