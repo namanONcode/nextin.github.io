@@ -86,22 +86,6 @@
         }
 
         .close-btn:hover { transform: rotate(90deg); }
-/*         .top-right-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.top-right-btn:hover {
-    background-color: #0056b3;
-} */
     </style>
 </head>
 <body>
@@ -145,15 +129,20 @@
         document.addEventListener("DOMContentLoaded", function () {
             const today = new Date().toISOString().split("T")[0];
             document.getElementById("futureDate").min = today;
-
+    
             document.getElementById("create-slot").addEventListener("click", createSlot);
         });
-
+    
+        // Function to get JWT token from localStorage
+        function getToken() {
+            return localStorage.getItem("jwtToken");
+        }
+    
         async function createSlot() {
             function getValue(id) {
                 return document.getElementById(id)?.value || ""; // Ensure value exists
             }
-
+    
             const data = {
                 userId: "3452314",
                 organizationName: getValue("hospital-name"),
@@ -171,32 +160,45 @@
                 ],
                 appointmentDate: getValue("futureDate")
             };
-
+    
             // Validate if all fields are filled
             if (!data.organizationName || !data.address || !data.doctors[0].name || !data.appointmentDate || !data.doctors[0].timeFrom || !data.doctors[0].timeTo) {
                 alert("Please fill all the fields correctly.");
                 return;
             }
-
+    
+            // 🔹 Get JWT Token from localStorage
+            const token = getToken();
+            if (!token) {
+                alert("❌ Authentication error: No token found. Please log in.");
+                window.location.href = "User login.html"; // Redirect to login page
+                return;
+            }
+    
             try {
                 const response = await fetch("https://ezappoint.azurewebsites.net/queue/organization/save-details", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}` // ✅ Include JWT token in headers
                     },
                     body: JSON.stringify(data)
                 });
-
+    
+                const result = await response.json();
+    
                 if (response.ok) {
-                    const jsonResponse = await response.json();
-                    alert("Slot created successfully! Response: " + JSON.stringify(jsonResponse));
+                    alert("✅ Slot created successfully!");
                 } else {
-                    alert("Failed to create slot. Error: " + response.statusText);
+                    console.error("❌ Server Response:", result);
+                    alert(`❌ Failed to create slot: ${result.message || response.statusText}`);
                 }
             } catch (error) {
-                alert("An error occurred: " + error.message);
+                console.error("❌ Error:", error);
+                alert("❌ An error occurred while creating the slot.");
             }
         }
     </script>
+    
 </body>
 </html>
