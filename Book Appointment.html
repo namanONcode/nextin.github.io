@@ -331,7 +331,7 @@ async function fetchSpecializations() {
     }
 
     try {
-        const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/specializations/${hospital}/${date}`, {
+        const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/specializations/${organizationName}/${date}`, {
             headers: getHeaders()
         });
 
@@ -365,8 +365,8 @@ async function fetchSpecializations() {
 
     // Listen for specialization selection and populate doctors
     specializationDropdown.addEventListener('change', () => {
-        document.getElementById('hospital').addEventListener('change', fetchSpecializations);
-document.getElementById('date').addEventListener('change', fetchSpecializations);
+//         document.getElementById('hospital').addEventListener('change', fetchSpecializations);
+// document.getElementById('date').addEventListener('change', fetchSpecializations);
 
         populateDoctors(doctors.filter(doc => doc.specialization === specializationDropdown.value));
     });
