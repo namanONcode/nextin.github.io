@@ -164,9 +164,13 @@
         </select>
 
         <label for="specialization">Specialization:</label>
-        <select id="specialization" disabled>
+<!--         <select id="specialization" disabled>
             <option value="">-- Select Specialization --</option>
-        </select>
+        </select> -->
+        <select id="specialization" disabled>
+    <option value="">-- Select Specialization --</option>
+</select>
+
 
         <label for="doctor">Doctor:</label>
         <select id="doctor" disabled>
@@ -316,11 +320,16 @@ async function fetchHospitals(location) {
         
 
 
-        // Function to fetch specializations based on selected hospital and date
-async function fetchSpecializations() {
+       async function fetchSpecializations() {
+    // ✅ Define elements properly
     const hospitalDropdown = document.getElementById('hospital');
     const dateInput = document.getElementById('date');
-    const specializationDropdown = document.getElementById('specialization');
+    const specializationDropdown = document.getElementById('specialization'); // Make sure this exists
+
+    if (!hospitalDropdown || !dateInput || !specializationDropdown) {
+        console.error("❌ One or more elements not found in the DOM.");
+        return;
+    }
 
     const hospital = hospitalDropdown.value;
     const date = dateInput.value;
@@ -340,7 +349,8 @@ async function fetchSpecializations() {
         }
 
         const specializations = await response.json();
-
+        
+        // ✅ Clear previous options
         specializationDropdown.innerHTML = '<option value="">-- Select Specialization --</option>';
 
         if (!Array.isArray(specializations) || specializations.length === 0) {
