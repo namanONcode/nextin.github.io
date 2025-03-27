@@ -260,18 +260,18 @@ async function fetchHospitals(location) {
 
 
         
-// // Function to populate specializations based on selected hospital
-// function populateSpecializations(doctors) {
-//     const specializationDropdown = document.getElementById('specialization');
-//     specializationDropdown.innerHTML = '<option value="">-- Select Specialization --</option>';
-//     const specializations = [...new Set(doctors.map(doc => doc.specialization))]; // Get unique specializations
-//     specializations.forEach(spec => {
-//         const option = document.createElement('option');
-//         option.value = spec;
-//         option.textContent = spec;
-//         specializationDropdown.appendChild(option);
-//     });
-//     specializationDropdown.disabled = false;
+// Function to populate specializations based on selected hospital
+function populateSpecializations(doctors) {
+    const specializationDropdown = document.getElementById('specialization');
+    specializationDropdown.innerHTML = '<option value="">-- Select Specialization --</option>';
+    const specializations = [...new Set(doctors.map(doc => doc.specialization))]; // Get unique specializations
+    specializations.forEach(spec => {
+        const option = document.createElement('option');
+        option.value = spec;
+        option.textContent = spec;
+        specializationDropdown.appendChild(option);
+    });
+    specializationDropdown.disabled = false;
 
 
         
@@ -285,83 +285,83 @@ async function fetchHospitals(location) {
 
 
 
-        // Function to fetch specializations based on selected hospital and date
-async function fetchSpecializations() {
-    const hospitalDropdown = document.getElementById('hospital');
-    const dateInput = document.getElementById('date');
-    const specializationDropdown = document.getElementById('specialization');
+//         // Function to fetch specializations based on selected hospital and date
+// async function fetchSpecializations() {
+//     const hospitalDropdown = document.getElementById('hospital');
+//     const dateInput = document.getElementById('date');
+//     const specializationDropdown = document.getElementById('specialization');
 
-    if (!hospitalDropdown || !dateInput || !specializationDropdown) {
-        console.error("❌ One or more required elements not found.");
-        return;
-    }
+//     if (!hospitalDropdown || !dateInput || !specializationDropdown) {
+//         console.error("❌ One or more required elements not found.");
+//         return;
+//     }
 
-    const hospitalId = hospitalDropdown.value;  // This is the hospital ID
-    const organizationName = hospitalDropdown.options[hospitalDropdown.selectedIndex]?.text?.trim() || ""; // Get hospital name
-    const date = dateInput.value;
+//     const hospitalId = hospitalDropdown.value;  // This is the hospital ID
+//     const organizationName = hospitalDropdown.options[hospitalDropdown.selectedIndex]?.text?.trim() || ""; // Get hospital name
+//     const date = dateInput.value;
 
-    if (!organizationName || !date) {
-        console.warn("⚠ Please select a hospital and a date.");
-        specializationDropdown.innerHTML = '<option value="">-- Select Specialization --</option>';
-        specializationDropdown.disabled = true;
-        return;
-    }
+//     if (!organizationName || !date) {
+//         console.warn("⚠ Please select a hospital and a date.");
+//         specializationDropdown.innerHTML = '<option value="">-- Select Specialization --</option>';
+//         specializationDropdown.disabled = true;
+//         return;
+//     }
 
-    try {
-        const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/specializations/${organizationName}/${date}`, {
-            headers: getHeaders()
-        });
+//     try {
+//         const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/specializations/${organizationName}/${date}`, {
+//             headers: getHeaders()
+//         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
 
-        const specializations = await response.json();
-        specializationDropdown.innerHTML = '<option value="">-- Select Specialization --</option>';
+//         const specializations = await response.json();
+//         specializationDropdown.innerHTML = '<option value="">-- Select Specialization --</option>';
 
-        if (!Array.isArray(specializations) || specializations.length === 0) {
-            console.warn("⚠ No specializations available.");
-            specializationDropdown.disabled = true;
-            return;
-        }
+//         if (!Array.isArray(specializations) || specializations.length === 0) {
+//             console.warn("⚠ No specializations available.");
+//             specializationDropdown.disabled = true;
+//             return;
+//         }
 
-        specializations.forEach(spec => {
-            const option = document.createElement('option');
-            option.value = spec;
-            option.textContent = spec;
-            specializationDropdown.appendChild(option);
-        });
+//         specializations.forEach(spec => {
+//             const option = document.createElement('option');
+//             option.value = spec;
+//             option.textContent = spec;
+//             specializationDropdown.appendChild(option);
+//         });
 
-        specializationDropdown.disabled = false;
-    } catch (error) {
-        console.error("❌ Error fetching specializations:", error);
-        alert("An error occurred while fetching specializations.");
-    }
-}
-
-// Attach event listeners correctly
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById('hospital').addEventListener('change', fetchSpecializations);
-    document.getElementById('date').addEventListener('change', fetchSpecializations);
-    document.getElementById('specialization').addEventListener('change', fetchDoctors);
-});
-
-
-
-
-
-// // Function to populate doctors based on selected specialization
-// function populateDoctors(doctors) {
-//     const doctorDropdown = document.getElementById('doctor');
-//     doctorDropdown.innerHTML = '<option value="">-- Select Doctor --</option>';
-//     doctors.forEach(doc => {
-//         const option = document.createElement('option');
-//         option.value = doc.name;
-//         option.textContent = doc.name;
-//         doctorDropdown.appendChild(option);
-//     });
-//     doctorDropdown.disabled = false;
+//         specializationDropdown.disabled = false;
+//     } catch (error) {
+//         console.error("❌ Error fetching specializations:", error);
+//         alert("An error occurred while fetching specializations.");
+//     }
 // }
+
+// // Attach event listeners correctly
+// document.addEventListener("DOMContentLoaded", function () {
+//     document.getElementById('hospital').addEventListener('change', fetchSpecializations);
+//     document.getElementById('date').addEventListener('change', fetchSpecializations);
+//     document.getElementById('specialization').addEventListener('change', fetchDoctors);
+// });
+
+
+
+
+
+// Function to populate doctors based on selected specialization
+function populateDoctors(doctors) {
+    const doctorDropdown = document.getElementById('doctor');
+    doctorDropdown.innerHTML = '<option value="">-- Select Doctor --</option>';
+    doctors.forEach(doc => {
+        const option = document.createElement('option');
+        option.value = doc.name;
+        option.textContent = doc.name;
+        doctorDropdown.appendChild(option);
+    });
+    doctorDropdown.disabled = false;
+}
 
 //         async function fetchDoctors() {
 //     const specialization = document.getElementById('specialization').value;
@@ -389,49 +389,49 @@ document.addEventListener("DOMContentLoaded", function () {
 //     }
 // }
 
-        async function fetchDoctors() {
-    try {
-        const response = await fetch("https://ezappoint.azurewebsites.net/queue/appointment/doctors/67e4f58c4aac80329cf3499b/Surgeon", {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer YOUR_ACCESS_TOKEN",
-                "Content-Type": "application/json"
-            }
-        });
+//         async function fetchDoctors() {
+//     try {
+//         const response = await fetch("https://ezappoint.azurewebsites.net/queue/appointment/doctors/67e4f58c4aac80329cf3499b/Surgeon", {
+//             method: "GET",
+//             headers: {
+//                 "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+//                 "Content-Type": "application/json"
+//             }
+//         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
 
-        const data = await response.json();
-        console.log("Doctors fetched:", data);
-        return data;
-    } catch (error) {
-        console.error("Error fetching doctors:", error);
-    }
-}
+//         const data = await response.json();
+//         console.log("Doctors fetched:", data);
+//         return data;
+//     } catch (error) {
+//         console.error("Error fetching doctors:", error);
+//     }
+// }
 
 
-// Function to populate doctors in dropdown
-function populateDoctors(doctors) {
-    const doctorDropdown = document.getElementById('doctor');
-    doctorDropdown.innerHTML = '<option value="">-- Select Doctor --</option>';
+// // Function to populate doctors in dropdown
+// function populateDoctors(doctors) {
+//     const doctorDropdown = document.getElementById('doctor');
+//     doctorDropdown.innerHTML = '<option value="">-- Select Doctor --</option>';
 
-    if (!Array.isArray(doctors) || doctors.length === 0) {
-        console.warn("⚠ No doctors available.");
-        doctorDropdown.disabled = true;
-        return;
-    }
+//     if (!Array.isArray(doctors) || doctors.length === 0) {
+//         console.warn("⚠ No doctors available.");
+//         doctorDropdown.disabled = true;
+//         return;
+//     }
 
-    doctors.forEach(doc => {
-        const option = document.createElement('option');
-        option.value = doc.name;
-        option.textContent = doc.name;
-        doctorDropdown.appendChild(option);
-    });
+//     doctors.forEach(doc => {
+//         const option = document.createElement('option');
+//         option.value = doc.name;
+//         option.textContent = doc.name;
+//         doctorDropdown.appendChild(option);
+//     });
 
-    doctorDropdown.disabled = false;
-}
+//     doctorDropdown.disabled = false;
+// }
 
 
 
