@@ -363,31 +363,54 @@ document.addEventListener("DOMContentLoaded", function () {
 //     doctorDropdown.disabled = false;
 // }
 
+//         async function fetchDoctors() {
+//     const specialization = document.getElementById('specialization').value;
+//     const hospital = document.getElementById('hospital').value;
+
+//     if (!specialization || !hospital) {
+//         console.warn("⚠ Please select a specialization and a hospital.");
+//         return;
+//     }
+
+//     try {
+//         const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/doctors/${hospital}/${specialization}`, {
+//             headers: getHeaders()
+//         });
+
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+
+//         const doctors = await response.json();
+//         populateDoctors(doctors);
+//     } catch (error) {
+//         console.error("❌ Error fetching doctors:", error);
+//         alert("An error occurred while fetching doctors.");
+//     }
+// }
+
         async function fetchDoctors() {
-    const specialization = document.getElementById('specialization').value;
-    const hospital = document.getElementById('hospital').value;
-
-    if (!specialization || !hospital) {
-        console.warn("⚠ Please select a specialization and a hospital.");
-        return;
-    }
-
     try {
-        const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/doctors/${hospital}/${specialization}`, {
-            headers: getHeaders()
+        const response = await fetch("https://ezappoint.azurewebsites.net/queue/appointment/doctors/67e4f58c4aac80329cf3499b/Surgeon", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+                "Content-Type": "application/json"
+            }
         });
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const doctors = await response.json();
-        populateDoctors(doctors);
+        const data = await response.json();
+        console.log("Doctors fetched:", data);
+        return data;
     } catch (error) {
-        console.error("❌ Error fetching doctors:", error);
-        alert("An error occurred while fetching doctors.");
+        console.error("Error fetching doctors:", error);
     }
 }
+
 
 // Function to populate doctors in dropdown
 function populateDoctors(doctors) {
