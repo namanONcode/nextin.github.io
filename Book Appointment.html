@@ -251,7 +251,7 @@ async function fetchHospitals(location) {
         // Listen for hospital selection and populate specializations
         hospitalDropdown.addEventListener('change', () => {
             const selectedOrg = organizations.find(org => org.id === hospitalDropdown.value);
-            populateSpecializations(selectedOrg?.doctors || []);
+            fetchSpecializations(selectedOrg?.doctors || []);
         });
     } catch (error) {
         console.error('Error fetching hospitals:', error);
