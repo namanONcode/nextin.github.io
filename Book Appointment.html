@@ -370,7 +370,7 @@ async function fetchSpecializations() {
     }
 
     try {
-        const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/specializations/${hospital}/${date}`, {
+        const response = await fetch(`https://ezappoint.azurewebsites.net/queue/appointment/specializations/${organizationName}/${date}`, {
             headers: getHeaders()
         });
 
