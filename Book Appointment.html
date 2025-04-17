@@ -307,14 +307,10 @@ function populateSpecializations(doctors) {
         specializationDropdown.appendChild(option);
     });
     specializationDropdown.disabled = false;
-document.addEventListener("DOMContentLoaded", function () {
+// document.addEventListener("DOMContentLoaded", function () {
     // Other stuff...
 
-    // When specialization is selected, fetch doctors
-    document.getElementById('specialization').addEventListener('change', fetchDoctors);
-});
-
-}
+}}
 
 
   async function fetchDoctors() {
@@ -418,18 +414,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-// // Function to populate doctors based on selected specialization
-// function populateDoctors(doctors) {
-//     const doctorDropdown = document.getElementById('doctor');
-//     doctorDropdown.innerHTML = '<option value="">-- Select Doctor --</option>';
-//     doctors.forEach(doc => {
-//         const option = document.createElement('option');
-//         option.value = doc.name;
-//         option.textContent = doc.name;
-//         doctorDropdown.appendChild(option);
-//     });
-//     doctorDropdown.disabled = false;
-// }
+// Function to populate doctors based on selected specialization
+function populateDoctors(doctors) {
+    const doctorDropdown = document.getElementById('doctor');
+    doctorDropdown.innerHTML = '<option value="">-- Select Doctor --</option>';
+    doctors.forEach(doc => {
+        const option = document.createElement('option');
+        option.value = doc.name;
+        option.textContent = doc.name;
+        doctorDropdown.appendChild(option);
+    });
+    doctorDropdown.disabled = false;
+}
 
 //         async function fetchDoctors() {
 //     const specialization = document.getElementById('specialization').value;
@@ -642,7 +638,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (this.value && date) {
             fetchTimeslots(this.value, date);
         }
+       
+
     });
+     document.getElementById('specialization').addEventListener('change', fetchDoctors);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
