@@ -175,7 +175,7 @@
         <input type="text" id="name" placeholder="Enter patient name">
         
         <label for="contact">Contact:</label>
-        <input type="text" id="contact" placeholder="Enter your contact number">
+        <input type="text" id="contact" placeholder="Enter your contact number"maxlength="10">
         
         <label for="date">Select Date:</label>
         <input type="date" id="date" required>
@@ -286,7 +286,7 @@ async function fetchHospitals(location) {
         // Listen for hospital selection and populate specializations
         hospitalDropdown.addEventListener('change', () => {
             const selectedOrg = organizations.find(org => org.id === hospitalDropdown.value);
-            fetchSpecializations(selectedOrg?.doctors || []);
+            populateSpecializations(selectedOrg?.doctors || []);
         });
     } catch (error) {
         console.error('Error fetching hospitals:', error);
