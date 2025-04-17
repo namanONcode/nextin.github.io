@@ -306,7 +306,15 @@ function populateSpecializations(doctors) {
         option.textContent = spec;
         specializationDropdown.appendChild(option);
     });
-    specializationDropdown.disabled = false;}
+    specializationDropdown.disabled = false;
+document.addEventListener("DOMContentLoaded", function () {
+    // Other stuff...
+
+    // When specialization is selected, fetch doctors
+    document.getElementById('specialization').addEventListener('change', fetchDoctors);
+});
+
+}
 
 
         
