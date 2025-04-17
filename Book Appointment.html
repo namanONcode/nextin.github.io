@@ -222,7 +222,15 @@
 
 
     <script>
-
+  // Allow only letters in Name field
+          document.getElementById("name").addEventListener("input", function () {
+                this.value = this.value.replace(/[^a-zA-Z\s]/g, ""); // removes non-letters, allows space
+            });
+    
+            // Allow only numbers in Contact field
+            document.getElementById("contact").addEventListener("input", function () {
+                this.value = this.value.replace(/[^0-9]/g, ""); // removes non-digits
+            });
 function getToken() {
     return localStorage.getItem("jwtToken");
 }
@@ -298,7 +306,7 @@ function populateSpecializations(doctors) {
         option.textContent = spec;
         specializationDropdown.appendChild(option);
     });
-    specializationDropdown.disabled = false;
+    specializationDropdown.disabled = false;}
 
 
         
