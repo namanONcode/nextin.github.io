@@ -91,21 +91,11 @@
 <body>
     <div class="header">
         <span class="logo">NextIn</span>
-        <span>History</span>
+        <span>Hospital Booking Detail</span>
     </div>
 
     <section class="details-container">
         <h2>Appointment Details</h2>
-        <div class="filters">
-            <input type="date" id="filter-date">
-            <select id="filter-doctor">
-                <option value="">Select Doctor</option>
-            </select>
-            <select id="filter-specialization">
-                <option value="">Select Specialization</option>
-            </select>
-            <button onclick="applyFilters()">Filter</button>
-        </div>
         
         <table>
             <thead>
@@ -128,8 +118,7 @@
     </section>
 
     <script>
-
-
+       
 function getToken() {
     return localStorage.getItem("jwtToken");
 }
@@ -155,7 +144,7 @@ const rowsPerPage = 10;
 // Function to fetch appointments using JWT authentication
 async function fetchAppointmentData() {
     try {
-        const response = await fetch("https://ezappoint.azurewebsites.net/queue/dashboard/user/fetch", {
+        const response = await fetch("https://ezappoint.azurewebsites.net/queue/dashboard/user/appointments", {
             headers: getHeaders()
         });
 
@@ -217,9 +206,10 @@ function createPagination() {
 // Fetch all appointment data initially
 fetchAppointmentData();
 
-console.log("Using token:", getToken());
 
 
     </script>
 </body>
 </html>
+
+
