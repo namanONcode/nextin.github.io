@@ -125,6 +125,16 @@
     </div>
 
     <script>
+
+ // Allow only letters in Name field
+ document.getElementById("doctor-name").addEventListener("input", function () {
+                this.value = this.value.replace(/[^a-zA-Z\s]/g, ""); // removes non-letters, allows space
+            });
+    document.getElementById("specialization").addEventListener("input", function () {
+                this.value = this.value.replace(/[^a-zA-Z\s]/g, ""); // removes non-letters, allows space
+            });
+
+        
         // Ensure only future dates are selectable
         document.addEventListener("DOMContentLoaded", function () {
             const today = new Date().toISOString().split("T")[0];
